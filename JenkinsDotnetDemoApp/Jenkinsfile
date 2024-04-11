@@ -48,6 +48,7 @@ pipeline {
         stage('Run Container'){
             steps{
                  script{
+                     sh 'docker stop aspnet || true'
                      sh 'docker rm aspnet || true'
                      sh 'docker run -d --name aspnet -p 8000:80 ${IMAGE_NAME}:${IMAGE_TAG}'
                  }
