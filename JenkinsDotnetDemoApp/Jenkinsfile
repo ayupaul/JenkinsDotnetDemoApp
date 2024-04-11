@@ -37,11 +37,11 @@ pipeline {
         }
         stage('docker push'){
             steps{
-                docker.withRegistry('https://index.docker.io/v1/',docker-ayush){
+                    docker.withRegistry('https://index.docker.io/v1/',docker-ayush){
                     docker.image('${IMAGE_NAME}:${IMAGE_TAG}').push()
                 }
             }
-        
+        }
         }
     }
 }
