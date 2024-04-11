@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment{
-        IMAGE_NAME = 'ayush900/jenkins-dotnet-demo'
+        IMAGE_NAME = 'ayush900/jenkinsdotnetdemo'
         IMAGE_TAG  = 'latest'
         DOCKERFILE_PATH = 'JenkinsDotnetDemoApp/Dockerfile'
    }
