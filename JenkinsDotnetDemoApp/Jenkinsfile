@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    environment{
+        IMAGE_NAME = 'ayush900/jenkins-dotnet-demo'
+        IMAGE_TAG  = 'latest'
+        DOCKERFILE_PATH = 'JenkinsDotnetDemoApp/Dockerfile'
+   }
+    stages {
+        stage('Checkout'){
+            steps{
+                checkout scm
+            }
+        }
+        stage('Build'){
+            steps{
+                sh 'dotnet build JenkinsDotnetDemoApp/JenkinsDotnetDemoApp.csproj --configuration Release'
+            }
+        }
+        stage('Test'){
+                steps{
+                    sh 'dotnet test DemoTest/DemoTest.csproj'
+                }
+        }
+        
+        stage('Print Workspace') {
+            steps {
+                echo "Workspace: ${env.WORKSPACE}"
+            }
+        }
+       stage('docker build') {
+            steps {
+                    script{
+                        def dockerfile = "${DOCKERFILE_PATH}"
+                        docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "-f ${dockerfile} .")
+                    }
+            }
+        }
+    }
+}
