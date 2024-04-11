@@ -45,6 +45,12 @@ pipeline {
                     }
                 }
             }
-        
+        stage('Run Container'){
+            steps{
+                 script{
+                     sh 'docker run -p 8000:80 ${IMAGE_NAME}:${IMAGE_TAG}'
+                 }
+            }
+        }
     }
 }
